@@ -63,10 +63,14 @@ function onLocationError(e) {
     map.on('locationerror', onLocationError);
     map.locate({setView: true, maxZoom: 16});
 
-
-var lc = L.control.locate({
-      position: 'topleft',
-      strings: {
-          title: "Show me where I am at."
-      }
-  }).addTo(map);
+    var LocationButton = L.easyButton({
+      states: [{
+              stateName: 'zoom-to-location',        // name the state
+              icon:      'fas fa-location-arrow',               // and define its properties
+              title:     'Zoom to a current location.',      // like its title
+              onClick: function(btn, map) {       // and its callback
+                  map.locate({setView: true, maxZoom: 16});
+              }
+      }]
+  });
+  LocationButton.addTo(map);
